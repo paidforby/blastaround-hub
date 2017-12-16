@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+    <title>Blastaround Scooter Hub</title>
+    <link rel="stylesheet" href="static/main.css">
+</head>
+
+<body>
+    <h3>Blastaround Scooter Status</h3>
+	<p>
+    <!-- this is by far the worst way of ever doing this -->
+    <li><strong>Scooter &nbsp&nbsp&nbsp&nbsp |&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Set Mode &nbsp&nbsp&nbsp&nbsp&nbsp</strong></li>
+    {% for scooter in scooters %}
+        <li>
+            {{ scooters[scooter].name }}:
+            {% for mode in modes %}
+                {% if mode == scooters[scooter].mode %} 
+                    |<strong> <a href="/{{ scooter }}/{{ mode }}"> {{ modes[mode].name }} </a> </strong>|
+                {% else %}
+                    |<a href="/{{ scooter }}/{{ mode }}"> {{ modes[mode].name }} </a>|
+                {% endif %}
+            {% endfor %}
+            {% if scooters[scooter].online == True %} 
+                |<strong> <a> online: yes </a> </strong>|
+            {% else %}
+                |<strong> <a> online: no </a> </strong>|
+            {% endif %}
+            
+        </li>
+    {% endfor %}
+	(<a href="/">refresh page</a>)
+	</p>
+	{% if message %}
+	<h2>{{ message }}</h2>
+	{% endif %}
+
+</body>
+</html>
